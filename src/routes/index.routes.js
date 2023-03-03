@@ -6,6 +6,7 @@ app.use(require('./students'))
 app.use(require('./universidad'))
 app.use(require('./facultad'))
 app.use(require('./profesor'))
+app.use(require('./persona'))
 app.get("/", (req, res) => {
   res.send("<h1>First Page</h1>");
 });
