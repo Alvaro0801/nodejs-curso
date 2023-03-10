@@ -1,7 +1,8 @@
 let personaController={}
 const personaServices=require("../services/persona")
 personaController.getPersons=(req,res)=>{
-    personaServices.getPersons().then(persona=> res.send(persona)).catch(err=> 
+    console.log(req.session.open)
+    personaServices.getPersons(req.query.tipo).then(persona=> res.send(persona)).catch(err=> 
         res.status(err.status).send(err.log)
     )
 }

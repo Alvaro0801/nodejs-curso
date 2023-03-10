@@ -2,9 +2,9 @@ const con=require("../config/db")
 
 const sessionServices={}
 
-sessionServices.create=(correo,contrasenia)=> new Promise(async(resolve, reject) => {
+sessionServices.create=(correo,contrasenia,keyword)=> new Promise(async(resolve, reject) => {
     try {
-        const [rows]=await con.query('select validarCredenciales(?,?) as logueado',[correo,contrasenia])
+        const [rows]=await con.query('select validarCredenciales(?,?,?) as logueado',[correo,contrasenia,keyword])
         if(rows[0].logueado==-1) return reject({log:"Usuario no registrado",status:404})
         if (rows[0].logueado==0) return reject({log:"Credenciales incorrectas",status:401})
         if (rows[0].logueado==1) return resolve({log:"Usuario Logueado",status:201});
