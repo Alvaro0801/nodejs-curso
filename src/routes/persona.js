@@ -4,5 +4,5 @@ const personaController=require("../controllers/persona")
 const {verifySession}=require("../middleware/verifySession")
 Persona.route('/personas')
 .get(verifySession,personaController.getPersons)
-.post(personaController.createPersona)
+.post(verifySession,personaController.createPersona)
 module.exports=Persona

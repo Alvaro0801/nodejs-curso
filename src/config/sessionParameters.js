@@ -8,6 +8,6 @@ module.exports = {
   saveUninitialized: false,
   rolling:true,
   cookie: { 
-    maxAge:180000
+    maxAge:1800000
   }
 };

@@ -4,8 +4,10 @@ sessionsController.create=(req,res)=>{
     if(!req.session.open){
         sessionServices.create(req.body.correo,req.body.contrasenia,process.env.HASH_PASS).then(success =>{
             req.session.open=true;
-            res.status(success.status).send('Sesion Creada');
-        }).catch(err=>{ res.status(err.status).send(err.log)})
+            return res.status(success.status).send('Sesion Creada');
+        }).catch(err=>{ return res.status(err.status).send(err.log)})
+    }else{
+        res.status(200).send('Sesion ya creada');
     }
 }
 

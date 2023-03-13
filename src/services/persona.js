@@ -43,10 +43,10 @@ personServices.createPersons=async(persona)=>
         try {
             const [resp]=await con.query('select registrarPersona(?,?,?,?,?,?) as ok',[nombre,apellido1,apellido2,dni,correo,celular]);
             console.log(resp)
-            if(resp[0][ok]==1){
+            if(resp[0]["ok"]==1){
                 resolve({status:201,log:"Persona created"});
             }else{
-                reject({log:"Error en la consulta",status:500})
+                reject({log:"Conflicto de datos",status:409})
             }
             
         } catch (error) {
