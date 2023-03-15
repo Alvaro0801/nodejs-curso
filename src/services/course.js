@@ -1,5 +1,6 @@
 let courseServices={}
 const con=require("../config/db")
+const fs=require("fs")
 courseServices.create=(nombre)=>new Promise(async(resolve, reject) => {
     if(!nombre)  return reject({status:400,log:'Falta el campo nombre'});
     const curso={
@@ -36,6 +37,26 @@ courseServices.getOneCourse=(id)=>new Promise(async(resolve, reject) => {
     } catch (error) {
         console.log(error)
         reject({status:500,log:"Error en el servidor"})
+    }
+})
+
+courseServices.nuevaFoto=(id)=> new Promise(async(resolve, reject) => {
+    try {
+        const [rows]=await con.query("select existeCurso(?) as result",[id]);
+        if(rows[0].result==1){
+            return resolve({log:"El archivo se ha guardado con exito",status:201})
+        }
+        fs.unlink(`img/curso-${id}.png`,err=>{
+            if(err){
+                reject({status:500,log:"Error en el servidor"})
+            }else{
+                reject({status:404,log:"El curso especificado no existe"})
+            }
+        })
+    } catch (error) {
+        console.log(error)
+        reject({status:500,log:"Error en el servidor"})
+        
     }
 })
 
